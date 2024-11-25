@@ -1,65 +1,130 @@
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Lato', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: #333;
-    color: #fff;
+    background-color: #2c3e50;
+    color: #ecf0f1;          
     text-align: center;
-    padding: 1rem;
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-main {
-    padding: 1rem;
-    max-width: 800px;
-    margin: auto;
-    padding-bottom: 4rem; /* Ensures space for the footer */
+header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    margin: 0;
 }
 
-img {
-    max-width: 100%;
-    display: block;
-    margin: 1rem 0;
+nav {
+    margin-top: 10px;
 }
-
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
-    position: relative; /* Change from fixed to relative */
-    bottom: 0;
-    width: 100%;
-}
-
 
 nav ul {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    justify-content: center;
-    background-color: #333;
+    text-align: center;
 }
 
 nav ul li {
-    margin: 0 10px;
+    display: inline-block;
+    margin: 0 15px;
 }
 
 nav ul li a {
     text-decoration: none;
-    color: white;
-    padding: 10px 20px;
-    display: inline-block;
-    background-color: #444;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    color: #ecf0f1;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 10px;
+    transition: color 0.3s;
 }
 
 nav ul li a:hover {
-    background-color: #555;
+    color: #e74c3c;
+}
+
+main {
+    padding: 40px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 4rem;
+}
+
+section h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    color: #2c3e50;
+    border-bottom: 2px solid #e74c3c; 
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+section p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+section ul {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-left: 20px;
+    list-style-type: square;
+}
+
+section ul li {
+    margin-bottom: 15px;
+}
+
+section ul ul {
+    margin-top: 10px;
+    list-style-type: circle;
+}
+
+section ul ul li {
+    margin-bottom: 10px;
+}
+
+footer {
+    background-color: #2c3e50;
+    color: #bdc3c7;
+    text-align: center;
+    padding: 15px 0;
+    border-top: 3px solid #e74c3c;
+    position: relative; 
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+    font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 24px;
+    }
+    nav ul li {
+        margin: 0 10px;
+    }
+    nav ul li a {
+        font-size: 16px;
+    }
+    section h2 {
+        font-size: 24px;
+    }
+    section p,
+    section ul {
+        font-size: 16px;
+    }
 }
