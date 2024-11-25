@@ -1,5 +1,5 @@
 
-# Data Science Term Project
+# IE 421 - Data Science for Engineers Term Project
 This repository contains a demonstration of a data science term project, using Python's toy datasets to create visualizations and a regression model.
 
 ## Files
