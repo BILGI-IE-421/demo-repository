@@ -9,4 +9,4 @@ This repository contains a demonstration of a data science term project, using P
 - `index.html`: Main webpage for GitHub Pages hosting.
 
 ## Hosting
-The project is hosted using GitHub Pages (https://bilgi-ie-421.github.io/demo-repository/index.html)
+The project is hosted using GitHub Pages (https://bilgi-ie-421.github.io/demo-repository)
