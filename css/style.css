@@ -17,6 +17,7 @@ main {
     padding: 1rem;
     max-width: 800px;
     margin: auto;
+    padding-bottom: 4rem; /* Ensures space for the footer */
 }
 
 img {
@@ -30,7 +31,7 @@ footer {
     color: #fff;
     text-align: center;
     padding: 1rem;
-    position: fixed;
+    position: relative; /* Change from fixed to relative */
     bottom: 0;
     width: 100%;
 }
