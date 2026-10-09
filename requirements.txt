@@ -1,0 +1,9 @@
+pandas>=2.2
+numpy>=1.26
+matplotlib>=3.8
+seaborn>=0.13
+plotly>=5.20
+bokeh>=3.4
+folium>=0.16
+requests>=2.31
+jupyter>=1.0

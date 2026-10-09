@@ -1,105 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Requirements</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600|Lato:400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IE 421 Term Project — Fall 2026</title>
+<meta name="description" content="Term project guidelines for IE 421 Data Science for Engineers, Fall 2026: themes, datasets, milestones, repository rules and grading.">
+<style>
+:root {
+  --ground: #f2f3f8; --paper: #ffffff; --ink: #150458; --text: #2a2740; --muted: #5d5a75;
+  --rule: #d8dae8; --pink: #c4036f; --yellow: #ffca00; --yellow-soft: #fff4c2; --code-bg: #eceef7;
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+  --sans: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, Menlo, monospace;
+  --bar-h: 48px; color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: calc(var(--bar-h) + 16px); }
+body { margin: 0; background: var(--ground); color: var(--text); font-family: var(--serif); font-size: 17px; line-height: 1.6; -webkit-text-size-adjust: 100%; }
+a { color: var(--pink); text-underline-offset: 2px; }
+a:hover { color: var(--ink); }
+:focus-visible { outline: 3px solid var(--pink); outline-offset: 2px; border-radius: 2px; }
+code, pre { font-family: var(--mono); }
+code { font-size: 0.86em; background: var(--code-bg); color: var(--ink); padding: 0.1em 0.35em; border-radius: 3px; overflow-wrap: anywhere; }
+pre { background: var(--code-bg); color: var(--ink); padding: 14px 16px; border-radius: 6px; overflow-x: auto; font-size: 0.85em; line-height: 1.5; }
+pre code { background: none; padding: 0; }
+.bar { position: sticky; top: 0; z-index: 10; height: var(--bar-h); background: var(--ink); color: #fff; font-family: var(--sans); font-size: 14px; display: flex; align-items: center; gap: 18px; padding: 0 16px; overflow-x: auto; white-space: nowrap; }
+.bar strong { color: var(--yellow); font-weight: 600; margin-right: 6px; }
+.bar a { color: #fff; text-decoration: none; opacity: .85; }
+.bar a:hover { opacity: 1; text-decoration: underline; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 16px 64px; }
+header.hero { background: var(--paper); border-bottom: 1px solid var(--rule); }
+header.hero .wrap { padding-top: 40px; padding-bottom: 28px; }
+.kicker { font-family: var(--sans); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--pink); font-weight: 600; margin: 0 0 8px; }
+h1 { font-family: var(--sans); font-size: clamp(28px, 4.5vw, 40px); line-height: 1.15; color: var(--ink); margin: 0 0 12px; }
+.lede { font-size: 19px; color: var(--muted); max-width: 720px; margin: 0 0 18px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--sans); font-size: 13.5px; }
+.chip { background: var(--yellow-soft); border: 1px solid #f1dd8a; color: var(--ink); padding: 4px 10px; border-radius: 999px; }
+.chip.alert { background: #fde4f0; border-color: #f3b7d6; color: var(--pink); font-weight: 600; }
+section { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 24px 24px 8px; margin: 24px 0; }
+h2 { font-family: var(--sans); color: var(--ink); font-size: 24px; margin: 0 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--yellow); }
+h2 .num { color: var(--pink); margin-right: 8px; }
+h3 { font-family: var(--sans); color: var(--ink); font-size: 18px; margin: 22px 0 8px; }
+h4 { font-family: var(--sans); color: var(--ink); font-size: 16px; margin: 16px 0 6px; }
+p { margin: 0 0 12px; }
+ul, ol { margin: 0 0 14px; padding-left: 24px; }
+li { margin-bottom: 4px; }
+table { width: 100%; border-collapse: collapse; margin: 8px 0 18px; font-size: 15.5px; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--rule); }
+th { font-family: var(--sans); font-size: 13.5px; letter-spacing: .02em; text-transform: uppercase; color: var(--muted); background: var(--ground); }
+tr.total td { font-weight: 700; color: var(--ink); border-top: 2px solid var(--ink); }
+.pts { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.note { background: var(--yellow-soft); border-left: 4px solid var(--yellow); padding: 10px 14px; border-radius: 4px; margin: 12px 0 16px; }
+.warn { background: #fde4f0; border-left: 4px solid var(--pink); padding: 10px 14px; border-radius: 4px; margin: 12px 0 16px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; margin-bottom: 16px; }
+.card { border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; background: var(--ground); }
+.card h3 { margin: 0 0 6px; font-size: 16.5px; }
+.card .cap { font-family: var(--sans); font-size: 12.5px; color: var(--pink); font-weight: 600; margin-bottom: 6px; }
+.card ul { padding-left: 18px; font-size: 15px; margin-bottom: 8px; }
+.card p { font-size: 15px; color: var(--muted); margin: 0; }
+.tbl-wrap { overflow-x: auto; }
+footer { font-family: var(--sans); font-size: 13.5px; color: var(--muted); text-align: center; padding: 16px; }
+@media (max-width: 600px) { body { font-size: 16px; } section { padding: 18px 16px 4px; } table { font-size: 14px; } th, td { padding: 6px 8px; } }
+@media print { .bar { display: none; } body { background: #fff; } section { border: none; padding: 0; break-inside: avoid; } a { color: var(--ink); } }
+</style>
 </head>
 <body>
-<header>
-    <h1>IE 421 - Data Science Term Project</h1>
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="requirements.html">Project Requirements</a></li>
-        </ul>
-    </nav>
-</header>
-<main>
-    <section>
-        <h2>Project Requirements</h2>
-        <p>This project involves comprehensive data analysis and visualization based on the given theme. The requirements are as follows:</p>
-        <ul>
-            <li><strong>Dataset Collection:</strong> Find and use relevant datasets that align with the theme.</li>
-            <li><strong>Data Visualization:</strong> Create four visualizations:
-                <ul>
-                    <li>Three descriptive visualizations to highlight trends, distributions, and relationships.</li>
-                    <li>One predictive visualization based on a regression or classification model.</li>
-                </ul>
-            </li>
-            <li><strong>Data Storytelling:</strong> Provide meaningful insights and narratives for each visualization.</li>
-            <li><strong>Predictive Model:</strong> Build and evaluate a regression or classification model. Include the following:
-                <ul>
-                    <li>Clear explanation of the model choice.</li>
-                    <li>Details of the features used.</li>
-                    <li>Performance metrics and interpretation.</li>
-                </ul>
-            </li>
-            <li><strong>Presentation:</strong> Use GitHub Pages to host and showcase the project, ensuring a professional layout and easy navigation.</li>
-        </ul>
-    </section>
-    <section>
-        <h2>Themes for Data Science Term Projects</h2>
-        <p>Please select one of the following themes for your term project. Your project should focus on exploring datasets related to the chosen theme and addressing specific, well-defined engineering or data-driven research questions.</p>
-        <ol>
-            <li><strong>Supply Chain & Operations Management</strong>
-                <p>Analyze the flow of goods, materials, and information to improve efficiency, resilience, and sustainability. This theme is ideal for industrial engineering applications.</p>
-                <p><em>Possible Datasets:</em> Search <strong>Kaggle</strong> for "supply chain" or "logistics" datasets. Look for public trade data (e.g., <strong>UN Comtrade</strong>) or freight/shipping data. Large forecasting datasets (e.g., from Walmart) are also relevant.</p>
-            </li>
-            
-            <li><strong>Energy Systems & Grid Optimization</strong>
-                <p>Study the *operational* side of energy, focusing on forecasting, optimization, and maintenance for power generation and distribution.</p>
-                <p><em>Possible Datasets:</em> Find data from government portals like the US <strong>Energy Information Administration (EIA)</strong> or the <strong>National Renewable Energy Laboratory (NREL)</strong>. Look for smart meter data or combine power generation data with weather data from <strong>NOAA</strong>.</p>
-            </li>
-            
-            <li><strong>Engineering Project Management & Financial Risk</strong>
-                <p>Apply data science to the business and management side of engineering. Investigate the *economics* of engineering projects, from cost estimation to risk analysis.</p>
-                <p><em>Possible Datasets:</em> Use the <strong>Federal Reserve Economic Data (FRED)</strong> to find the "Producer Price Index" (PPI) for commodities (steel, lumber). Check the <strong>World Bank</strong> or <strong>IMF</strong> for global commodity prices and infrastructure project data.</p>
-            </li>
-            
-            <li><strong>Summer Olympics: Systems & Performance</strong>
-                <p>Use the Olympics as a rich dataset to analyze human performance or the complex logistics and economic impact of hosting a global event.</p>
-                <p><em>Possible Datasets:</em> <strong>Kaggle</strong> is the best resource here. Search for "Olympics" to find historical data (120+ years) and datasets for recent games (Tokyo 2020, Paris 2024). Combine this with economic data (e.g., from <strong>FRED</strong>) for host cities.</p>
-            </li>
-            
-            <li><strong>Urban Systems & Smart Cities</strong>
-                <p>Focus on the intersection of civil and systems engineering with data. Use data from urban environments to optimize services, infrastructure, and quality of life.</p>
-                <p><em>Possible Datasets:</em> Explore your <strong>city's open data portal</strong> (e.g., for traffic, transit, 311 calls, or parking). The <strong>NYC Taxi & Limousine Commission</strong> dataset is a classic. Look for <strong>GTFS (General Transit Feed Specification)</strong> data for public transit schedules.</p>
-            </li>
+<nav class="bar" aria-label="Sections">
+  <strong>IE 421 · Term Project · Fall 2026</strong>
+  <a href="index.html">Home (demo site)</a><a href="#overview">Overview</a><a href="#teams">Teams</a><a href="#themes">Themes</a><a href="#milestones">Milestones</a><a href="#repo">Repository</a><a href="#requirements">Requirements</a><a href="#grading">Grading</a><a href="#policies">Policies</a><a href="#templates">Templates</a>
+</nav>
 
-            <li><strong>Climate Change & Environmental Engineering</strong>
-                <p>Analyze the physical and environmental data related to climate change to model its impacts and inform engineering solutions.</p>
-                <p><em>Possible Datasets:</em> Use <strong>NOAA's Climate Data Online</strong> for weather station data. Get air quality data from the <strong>EPA's AirData (AQS)</strong> portal. For geospatial analysis, use <strong>NASA's Earthdata (e.g., FIRMS</strong> for wildfires) or <strong>Google Earth Engine</strong>.</p>
-            </li>
-        </ol>
-        
-        <h3>Instructions</h3>
-        <ol>
-            <li><strong>Deliverable 1:</strong>
-                <ul>
-                    <li>Select one theme from the above list for your term project.</li>
-                    <li>Formulate <strong>three research questions</strong> related to your chosen theme.</li>
-                    <li>Identify and select relevant datasets that will help you answer your research questions.</li>
-                    <li>Submit your three research questions along with the dataset selections.</li>
-                    <li>Create a GitHub repository for your project and make a GitHub Page available. At this stage, the GitHub Page can be empty; you only need to provide the link.</li>
-                    <li>Include a <code>README.md</code> file in the repository explaining the details of your work and including student names with student IDs.</li>
-                </ul>
-            </li>
-            <li><strong>Deliverable 2:</strong>
-                <ul>
-                    <li>Complete Python codes should be placed in a <code>scripts</code> folder in your GitHub repository.</li>
-                    <li>Visualizations should be saved in a <code>visuals</code> folder in your GitHub repository.</li>
-                    <li>Develop a working website hosted via GitHub Pages that showcases your project.</li>
-                    <li>Update the <code>README.md</code> file in the repository to explain the details of your work and include student names with student IDs.</li>
-                </ul>
-            </li>
-        </ol>
-    </section>
+<header class="hero"><div class="wrap">
+  <p class="kicker">IE 421 · Data Science for Engineers · İstanbul Bilgi University</p>
+  <h1>Term Project: tell a story with data</h1>
+  <p class="lede">Pick a theme, take real data, clean it, explore it, visualize it well and publish a data story on GitHub Pages. No predictive model is required: the project is about data handling, exploratory analysis, visualization and storytelling.</p>
+  <div class="chips">
+    <span class="chip">40% of the course grade</span><span class="chip">Teams of 3–4</span><span class="chip">7 themes · 2 teams per theme</span><span class="chip alert">Sign-up closes Wed 14 Oct, 17:00</span>
+  </div>
+</div></header>
+
+<main class="wrap">
+
+<section id="overview">
+  <h2><span class="num">1</span>What you will build</h2>
+  <p>A public repository inside the course organization <a href="https://github.com/BILGI-IE-421">BILGI-IE-421</a> and a GitHub Pages website that contains:</p>
+  <ol>
+    <li><strong>A data card</strong> for every dataset: source, license, time range, size, columns, known issues, cleaning decisions.</li>
+    <li><strong>Data preparation code</strong> that joins at least two sources, parses dates correctly and reshapes data where needed (merge, groupby, pivot/melt).</li>
+    <li><strong>An exploratory analysis</strong>: first contact (types, sample, missing values, duplicates, identifiers), one variable at a time, then relationships.</li>
+    <li><strong>Four static visualizations</strong> that each answer part of a research question: a distribution, a relationship, a trend over time and a comparison across categories.</li>
+    <li><strong>One interactive visualization</strong> (bokeh or plotly) embedded in the page, with limited and obvious interaction.</li>
+    <li><strong>One advanced visualization</strong>: a map (folium), an animation, a 3D plot or a network, chosen because it carries the argument, not as decoration.</li>
+    <li><strong>A data story</strong>: active titles, one-sentence takeaways under every figure, numbers in context, a conclusion that takes a side, limitations and ethics.</li>
+  </ol>
+  <div class="note"><strong>Not required:</strong> regression, classification or any predictive model. If you include one it is not graded. Spend the time on data quality, chart design and narrative.</div>
+  <div class="note"><strong>Data:</strong> use at least one dataset from your theme's list in Section 3. You may add other datasets; list every dataset in your proposal and the instructor confirms them with the proposal feedback.</div>
+</section>
+
+<section id="teams">
+  <h2><span class="num">2</span>Teams and sign-up</h2>
+  <ol>
+    <li>Teams of 3 or 4 students. No teams of 5. Students without a team by the deadline are placed by the instructor.</li>
+    <li>Sign up in the shared sheet <em>IE421_Fall2026_Team_Signup</em> (link announced in class) by <strong>Wednesday 14 October, 17:00</strong>. Find your own row and fill in: team name, GitHub username, first and second theme choice.</li>
+    <li>Team name: lowercase letters, digits and hyphens only, for example <code>data-mavens</code>. Every member types exactly the same name.</li>
+    <li>GitHub username exactly as in <code>github.com/&lt;username&gt;</code>. No account yet? Create one with your Bilgi e-mail.</li>
+    <li>Each theme is capped at <strong>2 teams</strong>, first come first served; otherwise your second choice applies.</li>
+    <li>On 18 October your repository <code>ie421-2026-2027-1-termproject-&lt;team&gt;</code> is created in the organization and you receive a collaboration invitation by e-mail. Accept it. Your site will be at <code>https://bilgi-ie-421.github.io/ie421-2026-2027-1-termproject-&lt;team&gt;/</code>.</li>
+  </ol>
+</section>
+
+<section id="themes">
+  <h2><span class="num">3</span>Themes and datasets</h2>
+  <p>Seven themes, each built around data that is rich enough for maps, animations, networks and long time series. Links were checked on 9 October 2026; Kaggle datasets need a free account. Weather features for any theme: <a href="https://open-meteo.com/en/docs/historical-weather-api">Open-Meteo Historical Weather API</a> (no key). Raw files over 50 MB must not be committed: commit a download script and a sample or an aggregated file.</p>
+  <div class="grid">
+    <div class="card"><div class="cap">T1 · cap 2 teams</div><h3>Restless Earth: earthquakes, storms, fires</h3>
+      <ul>
+        <li><a href="https://earthquake.usgs.gov/earthquakes/search/">USGS earthquake catalog</a> (CSV via the <a href="https://earthquake.usgs.gov/fdsnws/event/1/">FDSN API</a>: magnitude, depth, location, 1900 to today)</li>
+        <li><a href="https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/">NOAA IBTrACS tropical cyclone tracks</a> (CSV, 1842 to today)</li>
+        <li><a href="https://firms.modaps.eosdis.nasa.gov/download/">NASA FIRMS active fire detections</a> (archive download or <a href="https://firms.modaps.eosdis.nasa.gov/api/">API</a>, free key)</li>
+        <li><a href="https://www.ngdc.noaa.gov/hazel/view/hazards/volcano/event-data">NOAA significant volcanic eruptions</a> · <a href="https://data.nasa.gov/dataset/meteorite-landings">NASA meteorite landings</a></li>
+      </ul><p>Story ideas: the heavy tail of magnitudes, storm tracks animated by decade, fire seasons on a map, where meteorites fall versus where people look for them.</p></div>
+    <div class="card"><div class="cap">T2 · cap 2 teams</div><h3>People on the Move: migration and refugees</h3>
+      <ul>
+        <li><a href="https://api.unhcr.org/population/v1/population/">UNHCR Refugee Data Finder API</a> (population by year, origin and asylum country; <a href="https://www.kaggle.com/datasets/unitednations/refugee-data">Kaggle mirror</a>)</li>
+        <li><a href="https://www.un.org/development/desa/pd/content/international-migrant-stock">UN DESA International Migrant Stock</a> (origin–destination matrix)</li>
+        <li><a href="https://www.knomad.org/data/remittances">KNOMAD remittance flows</a> (World Bank)</li>
+        <li><a href="https://ec.europa.eu/eurostat/databrowser/view/migr_asyappctza/default/table">Eurostat asylum applications</a> · <a href="https://population.un.org/wpp/">UN World Population Prospects</a></li>
+      </ul><p>Story ideas: flows as Sankey or chord diagrams, who hosts and who leaves, a decade of displacement, remittances compared with aid.</p></div>
+    <div class="card"><div class="cap">T3 · cap 2 teams</div><h3>The World at Play: football and Formula 1</h3>
+      <ul>
+        <li><a href="https://www.kaggle.com/datasets/martj42/international-football-results-from-1872-to-2017">International football results 1872 to today</a> (Kaggle, every national-team match)</li>
+        <li><a href="https://www.kaggle.com/datasets/evangower/fifa-world-cup">FIFA World Cup matches</a> (Kaggle)</li>
+        <li><a href="https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020">Formula 1 World Championship 1950 to today</a> (Kaggle: races, laps, pit stops, standings)</li>
+        <li><a href="https://github.com/jokecamp/FootballData">Club football datasets</a> (GitHub collection)</li>
+      </ul><p>Story ideas: 150 years of home advantage, eras of dominance, how pit stops got faster, goals per game across decades.</p></div>
+    <div class="card"><div class="cap">T4 · cap 2 teams</div><h3>Culture by the Numbers: music, film, LEGO, Nobel, names</h3>
+      <ul>
+        <li><a href="https://www.kaggle.com/datasets/asaniczka/top-spotify-songs-in-73-countries-daily-updated">Top Spotify songs in 73 countries</a> · <a href="https://www.kaggle.com/datasets/dhruvildave/billboard-the-hot-100-songs">Billboard Hot 100 since 1958</a> (Kaggle)</li>
+        <li><a href="https://developer.imdb.com/non-commercial-datasets/">IMDb non-commercial datasets</a> (TSV files at <a href="https://datasets.imdbws.com/">datasets.imdbws.com</a>)</li>
+        <li><a href="https://www.kaggle.com/datasets/rtatman/lego-database">LEGO database</a> (Rebrickable: sets, parts, colours, themes since 1950)</li>
+        <li><a href="https://api.nobelprize.org/2.1/laureates">Nobel Prize API</a> · <a href="https://www.kaggle.com/datasets/kaggle/us-baby-names">US baby names since 1880</a> (Kaggle)</li>
+      </ul><p>Story ideas: the colours of LEGO by decade, how pop went global, the age of a laureate, names that rose and fell.</p></div>
+    <div class="card"><div class="cap">T5 · cap 2 teams</div><h3>Hot Planet: temperature, ice and CO<sub>2</sub></h3>
+      <ul>
+        <li><a href="https://data.giss.nasa.gov/gistemp/">NASA GISTEMP</a> (global and zonal monthly anomalies)</li>
+        <li><a href="https://nsidc.org/data/seaice_index">NSIDC Sea Ice Index</a> (daily extent since 1978)</li>
+        <li><a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA Mauna Loa CO<sub>2</sub></a> (the Keeling curve)</li>
+        <li><a href="https://www.kaggle.com/datasets/sudalairajkumar/daily-temperature-of-major-cities">Daily temperature of major cities 1995–2020</a> · <a href="https://www.kaggle.com/datasets/berkeleyearth/climate-change-earth-surface-temperature-data">Berkeley Earth</a> (Kaggle)</li>
+      </ul><p>Story ideas: warming stripes, the climate spiral as an animation, the shrinking ice, city heat calendars.</p></div>
+    <div class="card"><div class="cap">T6 · cap 2 teams</div><h3>Cities We Live In: homes and bike-share</h3>
+      <ul>
+        <li><a href="https://insideairbnb.com/get-the-data/">Inside Airbnb</a> (listings with location, price and reviews for 100+ cities)</li>
+        <li><a href="https://s3.amazonaws.com/capitalbikeshare-data/index.html">Capital Bikeshare, Washington DC</a> · <a href="https://cycling.data.tfl.gov.uk/">TfL cycle hire, London</a> · <a href="https://divvy-tripdata.s3.amazonaws.com/index.html">Divvy, Chicago</a></li>
+        <li><a href="https://opendata.paris.fr/explore/dataset/comptage-velo-donnees-compteurs/">Paris bike counters</a></li>
+      </ul><p>Story ideas: tourism's footprint by neighbourhood, the daily pulse of a bike-share system, price maps, two cities compared.</p></div>
+    <div class="card"><div class="cap">T7 · cap 2 teams</div><h3>The Connected World: trade, flights and prices</h3>
+      <ul>
+        <li><a href="https://comtradeplus.un.org/">UN Comtrade Plus</a> (bilateral trade by product)</li>
+        <li><a href="https://openflights.org/data.php">OpenFlights airports and routes</a> · <a href="https://zenodo.org/records/7923702">OpenSky COVID-19 flight dataset</a> (Zenodo)</li>
+        <li><a href="https://github.com/TheEconomist/big-mac-data">The Economist Big Mac index</a> (GitHub)</li>
+        <li><a href="https://data.worldbank.org/indicator/IT.NET.USER.ZS">World Bank internet users</a></li>
+      </ul><p>Story ideas: trade as a network, the world's air routes on one map, the day the skies emptied, Big Mac purchasing power.</p></div>
+    <div class="card"><div class="cap">Any theme · extra datasets</div><h3>Curated collections</h3>
+      <ul>
+        <li><a href="https://github.com/rfordatascience/tidytuesday">TidyTuesday</a> (a new clean dataset every week since 2018)</li>
+        <li><a href="https://github.com/fivethirtyeight/data">FiveThirtyEight data</a> · <a href="https://github.com/the-pudding/data">The Pudding data</a></li>
+        <li><a href="https://informationisbeautiful.net/data/">Information is Beautiful</a></li>
+      </ul><p>Use these to add a second or third dataset to your theme. Each one comes with a published story you can learn from.</p></div>
+  </div>
+  <p><strong>Open theme.</strong> Only with written instructor approval before 18 October, and only with proof that the data is already downloaded.</p>
+</section>
+
+<section id="milestones">
+  <h2><span class="num">4</span>Milestones and deadlines</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Date</th><th>Milestone</th><th>Deliverable</th><th class="pts">Points</th></tr></thead>
+    <tbody>
+      <tr><td>Wed 14 Oct, 17:00</td><td>Team sign-up</td><td>Shared sheet filled in</td><td class="pts">—</td></tr>
+      <tr><td>Wed 21 Oct, 09:00</td><td><strong>M1 Extended proposal</strong></td><td><code>PROPOSAL.md</code> filled in: your problem, your datasets, your three questions. You present a 3-minute pitch in class from that page, plus 2 minutes of questions</td><td class="pts">5</td></tr>
+      <tr><td>Wed 18 Nov, 23:59</td><td><strong>M2 Data &amp; EDA checkpoint</strong></td><td>Data card; working download and cleaning scripts; EDA notebook; two static figures with interpretation live on your site</td><td class="pts">5</td></tr>
+      <tr><td>Wed 2 Dec, in class</td><td><strong>M3 Full draft</strong></td><td>All four static figures, the interactive and the advanced figure on the site; story outline; 8-minute desk check per team</td><td class="pts">4</td></tr>
+      <tr><td>Tue 8 Dec, 23:59</td><td><strong>Repository freeze</strong></td><td>Final repository and website</td><td class="pts">17</td></tr>
+      <tr><td>Wed 9 Dec, in class</td><td><strong>Final presentation</strong></td><td>8 minutes plus 4 minutes of questions; every member answers at least one question</td><td class="pts">5</td></tr>
+      <tr><td>Fri 11 Dec, 23:59</td><td>Peer evaluation</td><td>Short form, individual</td><td class="pts">4</td></tr>
+      <tr class="total"><td></td><td>Total</td><td></td><td class="pts">40</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Late work.</strong> Up to 12 hours late: graded at 70%. Between 12 and 24 hours late: graded at 50%. More than 24 hours late: not graded. Your last commit time is the reference, so do not leave it to the last minute.</p>
+</section>
+
+<section id="repo">
+  <h2><span class="num">5</span>Repository structure</h2>
+  <p>Your repository starts from the <a href="https://github.com/BILGI-IE-421/demo-repository">demo repository</a> (<a href="https://bilgi-ie-421.github.io/demo-repository/">demo site</a>). Keep this layout:</p>
+<pre><code>README.md          keep the main title; abstract (180–200 words), team, files, how to run, key findings
+PROPOSAL.md        milestone 1: problem, datasets, questions (template provided)
+AI_USAGE.md        how you used AI tools (template provided)
+requirements.txt   libraries you import
+index.html         your GitHub Pages site (css/ allowed)
+data/
+  README.md        data card (template provided)
+  *.csv            samples or aggregated data only, each under 50 MB
+scripts/
+  download_data.py fetches raw data from the source
+  preprocess.py    cleaning, joins, date parsing, reshaping
+  eda.ipynb        exploratory analysis
+  figures.py       produces every figure in visuals/
+visuals/
+  *.png, *.html    every figure used on the site (interactive figures as HTML)</code></pre>
+  <p>A GitHub Actions check named <code>structure-check</code> runs on every push. It flags missing files, an unfilled README, data files over 50 MB, hard-coded local paths such as <code>/content/drive</code>, and scripts that do not compile. Keep it green; it is part of the repository score.</p>
+</section>
+
+<section id="requirements">
+  <h2><span class="num">6</span>Requirements in detail</h2>
+  <h3>6.1 Data preparation</h3>
+  <ul>
+    <li>Join at least two sources. Reading one of them from an API or JSON is a plus.</li>
+    <li>Parse dates explicitly and consistently (one helper function, one <code>dayfirst</code> setting). Document time zones and units.</li>
+    <li>Handle missing values, duplicates and identifier columns deliberately and write the decision in the data card.</li>
+    <li>Use groupby, pivot or melt where the question needs it; do not pre-aggregate in Excel by hand.</li>
+  </ul>
+  <h3>6.2 Exploratory analysis</h3>
+  <ul>
+    <li>First contact: column types, a random sample, missing values and duplicates, what the identifiers are.</li>
+    <li>One variable at a time: summary statistics, histograms or box plots, counts of categories, values over time.</li>
+    <li>Relationships: correlation heatmap or scatter matrix, group comparisons. Write what you found, not only what you plotted.</li>
+  </ul>
+  <h3>6.3 Static figures</h3>
+  <ul>
+    <li>Four figures: a distribution, a relationship, a trend over time, a comparison across categories. Each answers part of a research question.</li>
+    <li>Label axes with units; put the data source under every figure.</li>
+    <li>Bar charts start at zero and are ordered meaningfully. No pie charts. Line charts carry at most four lines, labelled directly.</li>
+    <li>Use a logarithmic axis for heavy-tailed data; show uncertainty (error bars or confidence bands) when you compare averages.</li>
+    <li>Use a colour-blind-safe palette and colour strategically to point at the message.</li>
+  </ul>
+  <h3>6.4 Interactive and advanced figures</h3>
+  <ul>
+    <li>Interactive: bokeh or plotly, exported to HTML and embedded in the page. Interaction is limited to what helps the reader (hover, filter, select); controls are obvious.</li>
+    <li>Advanced: a folium map or choropleth, an animation, a 3D plot or a network. It must carry an argument that a static chart could not.</li>
+  </ul>
+  <h3>6.5 The data story</h3>
+  <ul>
+    <li>Structure: an opening hook, the three questions, findings in order, a conclusion that takes a side, limitations and ethics, references.</li>
+    <li>Active titles that state the finding ("Delays cluster in the evening", not "Delay by hour").</li>
+    <li>One-sentence takeaway under every figure; annotate the important numbers on the figure itself.</li>
+    <li>Numbers in context with sensible significant digits. Answer "so what?" for your audience.</li>
+    <li>One language throughout the site and the repository.</li>
+  </ul>
+</section>
+
+<section id="grading">
+  <h2><span class="num">7</span>Grading</h2>
+  <h3>Final product (17 points)</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Component</th><th>What we look for</th><th class="pts">Points</th></tr></thead>
+    <tbody>
+      <tr><td>Data preparation and data card</td><td>Source, license, range and units documented; missing, duplicates and outliers handled; consistent date parsing; correct joins and reshaping</td><td class="pts">3</td></tr>
+      <tr><td>Exploratory analysis</td><td>First contact, univariate, relationships; summary statistics; findings written down</td><td class="pts">2</td></tr>
+      <tr><td>Static figures and graphical integrity</td><td>Four figures of the required kinds; labels and units; zero-based bars; no pies; at most four labelled lines; log axis and uncertainty where needed; colour-blind-safe palette; source captions</td><td class="pts">4</td></tr>
+      <tr><td>Interactive and advanced figures</td><td>Purposeful, limited interaction; the advanced figure carries an argument</td><td class="pts">3</td></tr>
+      <tr><td>Data story</td><td>Active titles, takeaways, numbers in context, a conclusion that takes a side, limitations and ethics</td><td class="pts">3</td></tr>
+      <tr><td>Repository, README, reproducibility</td><td>Runs from the repository root; <code>requirements.txt</code>; no hard-coded paths; reproduction steps; structure check green</td><td class="pts">2</td></tr>
+      <tr class="total"><td>Total</td><td></td><td class="pts">17</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Milestones, presentation and peer evaluation (23 points)</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Item</th><th>What we look for</th><th class="pts">Points</th></tr></thead>
+    <tbody>
+      <tr><td>M1 Extended proposal</td><td>A clear problem (1); datasets identified with links (2); three research questions (2)</td><td class="pts">5</td></tr>
+      <tr><td>M2 Data &amp; EDA checkpoint</td><td>Data card (1); cleaning script works, decisions justified, two sources joined (2); EDA notebook (1); two figures with interpretation on the site (1)</td><td class="pts">5</td></tr>
+      <tr><td>M3 Full draft</td><td>Four static figures (1.5); interactive and advanced figures (1.5); story outline and repository in order (1)</td><td class="pts">4</td></tr>
+      <tr><td>Final presentation</td><td>Narrative flow and active titles (2); figures carry the claims (1); every member defends their part in the Q&amp;A (2)</td><td class="pts">5</td></tr>
+      <tr><td>Peer evaluation</td><td>Average of teammates' 1–5 ratings, cross-checked with the commit history</td><td class="pts">4</td></tr>
+      <tr class="total"><td>Total</td><td></td><td class="pts">23</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="policies">
+  <h2><span class="num">8</span>Policies</h2>
+  <h3>Individual contribution</h3>
+  <ul>
+    <li>Every member must have meaningful commits in all milestones. The commit history is read when grading.</li>
+    <li>Peer evaluation closes on 11 December: each member rates teammates from 1 to 5 with a one-sentence justification.</li>
+    <li>A member with no commits and a peer rating below 2 can lose up to 50% of the team score.</li>
+  </ul>
+  <h3>AI tools</h3>
+  <ul>
+    <li>You may use AI assistants (ChatGPT, Claude, Copilot and others).</li>
+    <li>Record every use in <code>AI_USAGE.md</code>: tool, task, where it is used, what you verified and how.</li>
+    <li>Be able to explain every line of code and every figure. During presentations each member is asked about code or results; a member who cannot explain their part loses presentation points.</li>
+    <li>The data card, limitations and conclusions are written in your own words. Generated text in these sections must be declared.</li>
+    <li>Undeclared use is an academic integrity violation under the University policy.</li>
+  </ul>
+</section>
+
+<section id="templates">
+  <h2><span class="num">9</span>Templates</h2>
+  <p>These files are in your repository from the start. Fill them in; do not delete them.</p>
+  <h3>PROPOSAL.md (milestone 1)</h3>
+  <p>One screen, three headings. You present your pitch directly from this page on GitHub; no slides.</p>
+<pre><code># Your project title
+
+**Team:** your-team-name · **Theme:** T? Theme name
+
+**Members:** Name Surname (Student ID) · Name Surname (Student ID) · ...
+
+## The problem
+Three or four sentences: what do you want to find out, and why is it worth knowing?
+
+## The data
+| Dataset | Link | What is in it |
+
+## Our questions
+1. ...
+2. ...
+3. ...</code></pre>
+  <h3>data/README.md (data card)</h3>
+<pre><code>## Dataset 1: &lt;name&gt;
+- Source and URL · License · Date accessed
+- Time range · Granularity · Size (rows x columns)
+- Columns used (name, unit, meaning)
+- Known issues (missing, duplicates, broken files, encoding, date format)
+- Cleaning decisions and why
+- How to regenerate: python scripts/download_data.py &amp;&amp; python scripts/preprocess.py</code></pre>
+  <h3>AI_USAGE.md</h3>
+<pre><code>| Date | Tool | Task (what you asked) | Where it is used | What you verified and how |</code></pre>
+  <h3>README.md checklist</h3>
+  <ul>
+    <li>Main title unchanged: <code># IE 421 - Data Science for Engineers Term Project</code></li>
+    <li>Project title, abstract (180–200 words), team with student IDs, site link</li>
+    <li>What each folder and script does; how to run from the repository root</li>
+    <li>Three key findings in one sentence each</li>
+  </ul>
+</section>
+
+<section id="resources">
+  <h2><span class="num">10</span>Resources</h2>
+  <ul>
+    <li>Demo repository and site: <a href="https://github.com/BILGI-IE-421/demo-repository">github.com/BILGI-IE-421/demo-repository</a> · <a href="https://bilgi-ie-421.github.io/demo-repository/">bilgi-ie-421.github.io/demo-repository</a></li>
+    <li>GitHub Pages documentation: <a href="https://docs.github.com/en/pages">docs.github.com/en/pages</a></li>
+    <li>Libraries: pandas, numpy, matplotlib, seaborn, plotly, bokeh, folium</li>
+    <li>Course material: the pandas exercises, the visualization labs and the storytelling lecture</li>
+    <li>Questions: <a href="mailto:doruk.sen@bilgi.edu.tr">doruk.sen@bilgi.edu.tr</a>, office E3-213 - check SIS for office hours</li>
+  </ul>
+</section>
+
 </main>
-<footer>
-    <p>&copy; IE 421 - Data Science Term Project</p>
-</footer>
+<footer>IE 421 · Data Science for Engineers · Fall 2026 · Term project guidelines v4 · last updated 12 October 2026</footer>
 </body>
 </html>

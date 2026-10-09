@@ -1,0 +1,47 @@
+name: structure-check
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Required files and folders
+        run: |
+          fail=0
+          for p in README.md index.html requirements.txt data/README.md scripts visuals; do
+            if [ ! -e "$p" ]; then echo "::error::missing: $p"; fail=1; fi
+          done
+          if ! grep -q "^# IE 421 - Data Science for Engineers Term Project" README.md; then
+            echo "::error::README main title must stay: '# IE 421 - Data Science for Engineers Term Project'"; fail=1
+          fi
+          if grep -qi "Please fill this area" README.md; then
+            echo "::warning::Student names are not filled in README.md"
+          fi
+          if ! ls scripts/*.py >/dev/null 2>&1; then
+            echo "::error::no Python scripts in scripts/"; fail=1
+          fi
+          if ! ls visuals/* >/dev/null 2>&1; then
+            echo "::warning::visuals/ is empty"
+          fi
+          big=$(find . -path ./.git -prune -o -type f \( -name "*.csv" -o -name "*.xlsx" -o -name "*.parquet" -o -name "*.json" \) -size +50M -print)
+          if [ -n "$big" ]; then
+            echo "::error::data files over 50 MB committed (commit a download script + sample instead):"; echo "$big"; fail=1
+          fi
+          if grep -rEl "/content/drive|C:\\\\Users|/Users/[a-z]+/" scripts/ 2>/dev/null; then
+            echo "::error::hard-coded local paths found in scripts/ (see files above)"; fail=1
+          fi
+          exit $fail
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dependencies install and scripts compile
+        run: |
+          python -m pip install -q -r requirements.txt
+          python -m py_compile scripts/*.py
