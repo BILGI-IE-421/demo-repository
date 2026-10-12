@@ -59,6 +59,8 @@ tr.total td { font-weight: 700; color: var(--ink); border-top: 2px solid var(--i
 .card ul { padding-left: 18px; font-size: 15px; margin-bottom: 8px; }
 .card p { font-size: 15px; color: var(--muted); margin: 0; }
 .tbl-wrap { overflow-x: auto; }
+.btn { display: inline-block; font-family: var(--sans); font-weight: 600; font-size: 16px; background: var(--pink); color: #fff; padding: 10px 18px; border-radius: 6px; text-decoration: none; margin: 2px 0 6px; }
+.btn:hover { background: var(--ink); color: #fff; }
 footer { font-family: var(--sans); font-size: 13.5px; color: var(--muted); text-align: center; padding: 16px; }
 @media (max-width: 600px) { body { font-size: 16px; } section { padding: 18px 16px 4px; } table { font-size: 14px; } th, td { padding: 6px 8px; } }
 @media print { .bar { display: none; } body { background: #fff; } section { border: none; padding: 0; break-inside: avoid; } a { color: var(--ink); } }
@@ -75,7 +77,7 @@ footer { font-family: var(--sans); font-size: 13.5px; color: var(--muted); text-
   <h1>Term Project: tell a story with data</h1>
   <p class="lede">Pick a theme, take real data, clean it, explore it, visualize it well and publish a data story on GitHub Pages. No predictive model is required: the project is about data handling, exploratory analysis, visualization and storytelling.</p>
   <div class="chips">
-    <span class="chip">40% of the course grade</span><span class="chip">Teams of 3–4</span><span class="chip">7 themes · 2 teams per theme</span><span class="chip alert">Sign-up closes Wed 14 Oct, 17:00</span>
+    <span class="chip">40% of the course grade</span><span class="chip">Teams of 3–4</span><span class="chip">7 themes · 2 teams per theme</span><a href="https://docs.google.com/spreadsheets/d/1ukfN7AojP2Sb3RgEw58uEnRFSmSwlF3NY_AuGs59KIA/edit?usp=sharing" target="_blank" rel="noopener" class="chip alert" style="text-decoration:none">Team sign-up sheet · closes Wed 14 Oct, 17:00</a>
   </div>
 </div></header>
 
@@ -99,9 +101,10 @@ footer { font-family: var(--sans); font-size: 13.5px; color: var(--muted); text-
 
 <section id="teams">
   <h2><span class="num">2</span>Teams and sign-up</h2>
+  <p><a href="https://docs.google.com/spreadsheets/d/1ukfN7AojP2Sb3RgEw58uEnRFSmSwlF3NY_AuGs59KIA/edit?usp=sharing" target="_blank" rel="noopener" class="btn">Open the team sign-up sheet</a></p>
   <ol>
     <li>Teams of 3 or 4 students. No teams of 5. Students without a team by the deadline are placed by the instructor.</li>
-    <li>Sign up in the shared sheet <em>IE421_Fall2026_Team_Signup</em> (link announced in class) by <strong>Wednesday 14 October, 17:00</strong>. Fill in <strong>only the Sign-up sheet</strong>; the other sheets update automatically. Find your own row and fill in: team name, GitHub username, first and second theme choice. The team name and both theme choices must be the same for the entire team.</li>
+    <li>Sign up in the <a href="https://docs.google.com/spreadsheets/d/1ukfN7AojP2Sb3RgEw58uEnRFSmSwlF3NY_AuGs59KIA/edit?usp=sharing" target="_blank" rel="noopener">team sign-up sheet</a> by <strong>Wednesday 14 October, 17:00</strong>. Fill in <strong>only the Sign-up sheet</strong>; the other sheets update automatically. Find your own row and fill in: team name, GitHub username, first and second theme choice. The team name and both theme choices must be the same for the entire team.</li>
     <li>Team name: lowercase letters, digits and hyphens only, for example <code>data-mavens</code>. Every member types exactly the same name. The team name will be <strong>public on GitHub</strong>: it becomes part of your repository name and your website address.</li>
     <li>GitHub username exactly as in <code>github.com/&lt;username&gt;</code>. No account yet? Create one with your Bilgi e-mail.</li>
     <li>Themes are assigned <strong>first come, first served</strong>, with at most <strong>2 teams</strong> per theme. Only complete team entries count: every member of your team has filled in their own row with the same team name, their own GitHub username and the same first and second theme choice. The sheet shows <em>complete</em> in green when your entry is done.</li>
@@ -177,7 +180,7 @@ footer { font-family: var(--sans); font-size: 13.5px; color: var(--muted); text-
   <div class="tbl-wrap"><table>
     <thead><tr><th>Date</th><th>Milestone</th><th>Deliverable</th><th class="pts">Points</th></tr></thead>
     <tbody>
-      <tr><td>Wed 14 Oct, 17:00</td><td>Team sign-up</td><td>Shared sheet filled in</td><td class="pts">—</td></tr>
+      <tr><td>Wed 14 Oct, 17:00</td><td>Team sign-up</td><td><a href="https://docs.google.com/spreadsheets/d/1ukfN7AojP2Sb3RgEw58uEnRFSmSwlF3NY_AuGs59KIA/edit?usp=sharing" target="_blank" rel="noopener">Team sign-up sheet</a> complete for every member, and the e-mail sent</td><td class="pts">—</td></tr>
       <tr><td>Wed 21 Oct, 09:00</td><td><strong>M1 Extended proposal</strong></td><td><code>PROPOSAL.md</code> filled in: your problem, your datasets, your three questions. You present a 3-minute pitch in class from that page, plus 2 minutes of questions</td><td class="pts">5</td></tr>
       <tr><td>Wed 18 Nov, 23:59</td><td><strong>M2 Data &amp; EDA checkpoint</strong></td><td>Data card; working download and cleaning scripts; EDA notebook; two static figures with interpretation live on your site</td><td class="pts">5</td></tr>
       <tr><td>Wed 2 Dec, in class</td><td><strong>M3 Full draft</strong></td><td>All four static figures, the interactive and the advanced figure on the site; story outline; 8-minute desk check per team</td><td class="pts">4</td></tr>
